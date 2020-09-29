@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 483px;
+            height: 673px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/ZonadeAmortiguamiento_1.js"></script>
+        <script src="data/ANPdeAdministracionNacional_2.js"></script>
+        <script src="data/ANPdeAdministracinRegional_3.js"></script>
+        <script src="data/ANPdeAdministracinPrivada_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-18.346120714550032,-81.53943684278627],[0.20930042529981385,-68.23815879767781]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OpenStreetMap_0');
+        map.getPane('pane_OpenStreetMap_0').style.zIndex = 400;
+        var layer_OpenStreetMap_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OpenStreetMap_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OpenStreetMap_0;
+        map.addLayer(layer_OpenStreetMap_0);
+        function pop_ZonadeAmortiguamiento_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">NOMBRE:</th>\
+                        <td>' + (feature.properties['ZA_NOMB'] !== null ? autolinker.link(feature.properties['ZA_NOMB'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BASE LEGAL:</th>\
+                        <td>' + (feature.properties['ZA_BALE'] !== null ? autolinker.link(feature.properties['ZA_BALE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CREACIÓN:</th>\
+                        <td>' + (feature.properties['ZA_FECR'] !== null ? autolinker.link(feature.properties['ZA_FECR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ZonadeAmortiguamiento_1_0() {
+            return {
+                pane: 'pane_ZonadeAmortiguamiento_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(244,29,255,0.5)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ZonadeAmortiguamiento_1');
+        map.getPane('pane_ZonadeAmortiguamiento_1').style.zIndex = 401;
+        map.getPane('pane_ZonadeAmortiguamiento_1').style['mix-blend-mode'] = 'normal';
+        var layer_ZonadeAmortiguamiento_1 = new L.geoJson(json_ZonadeAmortiguamiento_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ZonadeAmortiguamiento_1',
+            layerName: 'layer_ZonadeAmortiguamiento_1',
+            pane: 'pane_ZonadeAmortiguamiento_1',
+            onEachFeature: pop_ZonadeAmortiguamiento_1,
+            style: style_ZonadeAmortiguamiento_1_0,
+        });
+        bounds_group.addLayer(layer_ZonadeAmortiguamiento_1);
+        map.addLayer(layer_ZonadeAmortiguamiento_1);
+        function pop_ANPdeAdministracionNacional_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">CATEGORÍA:</th>\
+                        <td>' + (feature.properties['ANP_CATE'] !== null ? autolinker.link(feature.properties['ANP_CATE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE:</th>\
+                        <td>' + (feature.properties['ANP_NOMB'] !== null ? autolinker.link(feature.properties['ANP_NOMB'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CÖDIGO:</th>\
+                        <td>' + (feature.properties['ANP_CODI'] !== null ? autolinker.link(feature.properties['ANP_CODI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UBCACIÓN:</th>\
+                        <td>' + (feature.properties['ANP_UBPO'] !== null ? autolinker.link(feature.properties['ANP_UBPO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ÁREA LEGAL:</th>\
+                        <td>' + (feature.properties['ANP_ARLE'] !== null ? autolinker.link(feature.properties['ANP_ARLE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">USO:</th>\
+                        <td>' + (feature.properties['ANP_USO'] !== null ? autolinker.link(feature.properties['ANP_USO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BASE LEGAL:</th>\
+                        <td>' + (feature.properties['ANP_BALECR'] !== null ? autolinker.link(feature.properties['ANP_BALECR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CREACIÓN:</th>\
+                        <td>' + (feature.properties['ANP_FECREA'] !== null ? autolinker.link(feature.properties['ANP_FECREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MODIFICACIÓN:</th>\
+                        <td>' + (feature.properties['ANP_BALEMO'] !== null ? autolinker.link(feature.properties['ANP_BALEMO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FECHA MODIFICACIÓN:</th>\
+                        <td>' + (feature.properties['ANP_FEMODI'] !== null ? autolinker.link(feature.properties['ANP_FEMODI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ANPdeAdministracionNacional_2_0() {
+            return {
+                pane: 'pane_ANPdeAdministracionNacional_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,231,9,0.5)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ANPdeAdministracionNacional_2');
+        map.getPane('pane_ANPdeAdministracionNacional_2').style.zIndex = 402;
+        map.getPane('pane_ANPdeAdministracionNacional_2').style['mix-blend-mode'] = 'normal';
+        var layer_ANPdeAdministracionNacional_2 = new L.geoJson(json_ANPdeAdministracionNacional_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ANPdeAdministracionNacional_2',
+            layerName: 'layer_ANPdeAdministracionNacional_2',
+            pane: 'pane_ANPdeAdministracionNacional_2',
+            onEachFeature: pop_ANPdeAdministracionNacional_2,
+            style: style_ANPdeAdministracionNacional_2_0,
+        });
+        bounds_group.addLayer(layer_ANPdeAdministracionNacional_2);
+        map.addLayer(layer_ANPdeAdministracionNacional_2);
+        function pop_ANPdeAdministracinRegional_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">CATEGORÍA:</th>\
+                        <td>' + (feature.properties['ANPC_CAT'] !== null ? autolinker.link(feature.properties['ANPC_CAT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CÓDIGO:</th>\
+                        <td>' + (feature.properties['ANPC_CODI'] !== null ? autolinker.link(feature.properties['ANPC_CODI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE:</th>\
+                        <td>' + (feature.properties['ANPC_NOMB'] !== null ? autolinker.link(feature.properties['ANPC_NOMB'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ÁREA:</th>\
+                        <td>' + (feature.properties['ANPC_AREA'] !== null ? autolinker.link(feature.properties['ANPC_AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BASE LEGAL:</th>\
+                        <td>' + (feature.properties['ANPC_BALEC'] !== null ? autolinker.link(feature.properties['ANPC_BALEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CREACION:</th>\
+                        <td>' + (feature.properties['ANPC_FELEC'] !== null ? autolinker.link(feature.properties['ANPC_FELEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MODIFICACIÓN:</th>\
+                        <td>' + (feature.properties['ANPC_BALEM'] !== null ? autolinker.link(feature.properties['ANPC_BALEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FECHA MODIFICACIÓN:</th>\
+                        <td>' + (feature.properties['ANPC_FELEM'] !== null ? autolinker.link(feature.properties['ANPC_FELEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DEPARTAMENTO:</th>\
+                        <td>' + (feature.properties['ANPC_DEPA'] !== null ? autolinker.link(feature.properties['ANPC_DEPA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TIPO:</th>\
+                        <td>' + (feature.properties['ANPC_TIPOP'] !== null ? autolinker.link(feature.properties['ANPC_TIPOP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TITULAR:</th>\
+                        <td>' + (feature.properties['ANPC_TITU'] !== null ? autolinker.link(feature.properties['ANPC_TITU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ANPdeAdministracinRegional_3_0() {
+            return {
+                pane: 'pane_ANPdeAdministracinRegional_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,230,115,0.5)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ANPdeAdministracinRegional_3');
+        map.getPane('pane_ANPdeAdministracinRegional_3').style.zIndex = 403;
+        map.getPane('pane_ANPdeAdministracinRegional_3').style['mix-blend-mode'] = 'normal';
+        var layer_ANPdeAdministracinRegional_3 = new L.geoJson(json_ANPdeAdministracinRegional_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ANPdeAdministracinRegional_3',
+            layerName: 'layer_ANPdeAdministracinRegional_3',
+            pane: 'pane_ANPdeAdministracinRegional_3',
+            onEachFeature: pop_ANPdeAdministracinRegional_3,
+            style: style_ANPdeAdministracinRegional_3_0,
+        });
+        bounds_group.addLayer(layer_ANPdeAdministracinRegional_3);
+        map.addLayer(layer_ANPdeAdministracinRegional_3);
+        function pop_ANPdeAdministracinPrivada_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">CATEGORÍA:</th>\
+                        <td>' + (feature.properties['ANPC_CAT'] !== null ? autolinker.link(feature.properties['ANPC_CAT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CÓDIGO:</th>\
+                        <td>' + (feature.properties['ANPC_CODI'] !== null ? autolinker.link(feature.properties['ANPC_CODI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE:</th>\
+                        <td>' + (feature.properties['ANPC_NOMB'] !== null ? autolinker.link(feature.properties['ANPC_NOMB'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ÁREA:</th>\
+                        <td>' + (feature.properties['ANPC_AREA'] !== null ? autolinker.link(feature.properties['ANPC_AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BASE LEGAL:</th>\
+                        <td>' + (feature.properties['ANPC_BALEC'] !== null ? autolinker.link(feature.properties['ANPC_BALEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CREACIÓN:</th>\
+                        <td>' + (feature.properties['ANPC_FELEC'] !== null ? autolinker.link(feature.properties['ANPC_FELEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MOFICACIÓN:</th>\
+                        <td>' + (feature.properties['ANPC_BALEM'] !== null ? autolinker.link(feature.properties['ANPC_BALEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FECHA MODIFICACIÓN:</th>\
+                        <td>' + (feature.properties['ANPC_FELEM'] !== null ? autolinker.link(feature.properties['ANPC_FELEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DEPARTAMENTO:</th>\
+                        <td>' + (feature.properties['ANPC_DEPA'] !== null ? autolinker.link(feature.properties['ANPC_DEPA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TIPO:</th>\
+                        <td>' + (feature.properties['ANPC_TIPOP'] !== null ? autolinker.link(feature.properties['ANPC_TIPOP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TITULAR:</th>\
+                        <td>' + (feature.properties['ANPC_TITU'] !== null ? autolinker.link(feature.properties['ANPC_TITU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Shape_Area</th>\
+                        <td>' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ANPdeAdministracinPrivada_4_0() {
+            return {
+                pane: 'pane_ANPdeAdministracinPrivada_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,129,87,0.5)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ANPdeAdministracinPrivada_4');
+        map.getPane('pane_ANPdeAdministracinPrivada_4').style.zIndex = 404;
+        map.getPane('pane_ANPdeAdministracinPrivada_4').style['mix-blend-mode'] = 'normal';
+        var layer_ANPdeAdministracinPrivada_4 = new L.geoJson(json_ANPdeAdministracinPrivada_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ANPdeAdministracinPrivada_4',
+            layerName: 'layer_ANPdeAdministracinPrivada_4',
+            pane: 'pane_ANPdeAdministracinPrivada_4',
+            onEachFeature: pop_ANPdeAdministracinPrivada_4,
+            style: style_ANPdeAdministracinPrivada_4_0,
+        });
+        bounds_group.addLayer(layer_ANPdeAdministracinPrivada_4);
+        map.addLayer(layer_ANPdeAdministracinPrivada_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/ANPdeAdministracinPrivada_4.png" /> ANP de Administración Privada': layer_ANPdeAdministracinPrivada_4,'<img src="legend/ANPdeAdministracinRegional_3.png" /> ANP de Administración Regional': layer_ANPdeAdministracinRegional_3,'<img src="legend/ANPdeAdministracionNacional_2.png" /> ANP de Administracion Nacional': layer_ANPdeAdministracionNacional_2,'<img src="legend/ZonadeAmortiguamiento_1.png" /> Zona de Amortiguamiento': layer_ZonadeAmortiguamiento_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
